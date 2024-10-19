@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom:20,
+    marginVertical:30,
   },
   userimage: {
     width: 50,

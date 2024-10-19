@@ -1,35 +1,47 @@
-import { Colors } from '@/constants/Colors';
-import React from 'react';
-import { Dimensions, Image, ImageBackground, StyleSheet, View ,Text,TouchableOpacity,Linking} from 'react-native';
+import { Colors } from "@/constants/Colors";
+import React from "react";
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
-const { width: Width } = Dimensions.get('screen'); // Get screen width
+const { width: Width } = Dimensions.get("screen"); // Get screen width
 
 export default function SliderItem({ slideitem }) {
-    const handleImageClick = () => {
-        if (slideitem.link) {
-          Linking.openURL(slideitem.link);  // Open the URL in the device's browser
-        }
-      };
+  const handleImageClick = () => {
+    if (slideitem.link) {
+      Linking.openURL(slideitem.link); // Open the URL in the device's browser
+    }
+  };
+
   return (
     <View style={styles.itemWrapper}>
-         <TouchableOpacity style={styles.image} onPress={handleImageClick}>
-      {/* Image component to display the image, resize mode is 'cover' to ensure proper scaling */}
-      <ImageBackground
-        source={{ uri: slideitem.image_url }}
-        style={styles.image}
-        resizeMode="cover" // Ensures image fits without distortion
-      >
-       {/* Top-left corner logo and logo title */}
-       <View style={styles.topLeftContainer}>
-          <Image source={{ uri: slideitem.source_icon }} style={styles.logo} />
-          <Text style={styles.logoTitle}>{slideitem.source_name}</Text>
-        </View>
-
-        {/* Bottom-left corner slider item title */}
-        <View style={styles.bottomLeftContainer}>
-          <Text style={styles.itemTitle}>{slideitem.title}</Text>
-        </View>
-      </ImageBackground>
+      <TouchableOpacity style={styles.imageWrapper} onPress={handleImageClick}>
+        <ImageBackground
+          source={{ uri: slideitem.image_url }}
+          style={styles.image}
+          imageStyle={styles.imageBorder} // Adding this prop to style the image itself
+          resizeMode="cover"
+        >
+          <View style={styles.overlay} />
+          {/* Add a dark overlay for better readability */}
+          <View style={styles.topLeftContainer}>
+            <Image
+              source={{ uri: slideitem.source_icon }}
+              style={styles.logo}
+            />
+            <Text style={styles.logoTitle}>{slideitem.source_name}</Text>
+          </View>
+          <View style={styles.bottomLeftContainer}>
+            <Text style={styles.itemTitle}>{slideitem.title}</Text>
+          </View>
+        </ImageBackground>
       </TouchableOpacity>
     </View>
   );
@@ -37,44 +49,64 @@ export default function SliderItem({ slideitem }) {
 
 const styles = StyleSheet.create({
   itemWrapper: {
-    width: Width * 0.8, // 80% of the screen width for the image container
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 10, // Margin between items
-    
+    width: Width * 0.85, // 85% of the screen width for the image container
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 10,
+    marginVertical: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5, // For Android shadow
+    borderRadius: 30,
+  },
+  imageWrapper: {
+    width: "100%",
+    borderRadius: 30,
+    overflow: "hidden", // Ensures that the image stays within the rounded border
   },
   image: {
-    width: '100%', // Image takes full width of the container
-    height: 180,   // Fixed height for each image
-    borderRadius: 30, // Optional: rounded corners for a cleaner look
+    width: "100%",
+    height: 350,
+    justifyContent: "flex-end", // Align content to the bottom
+  },
+  imageBorder: {
+    borderRadius: 30, // Make the image itself rounded
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject, // Spread to cover the image completely
+    backgroundColor: "rgba(0, 0, 0, 0.3)", // Add a dark transparent overlay
+    borderRadius: 30, // Make sure overlay has the same rounded corners
   },
   topLeftContainer: {
-    position: 'absolute',  // Absolute positioning to place it at the top-left
-    top: 10,               // 10 units from the top of the image
-    left: 10,              // 10 units from the left of the image
-    flexDirection: 'row',  // Place logo and title in a row
-    alignItems: 'center',  // Center vertically within the container
+    position: "absolute",
+    top: 15,
+    left: 15,
+    flexDirection: "row",
+    alignItems: "center",
   },
   logo: {
-    width: 40,          // Logo size (you can adjust as needed)
-    height: 40,         // Logo size
-    borderRadius: 20,   // Circular logo
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "#fff", // Add a white border to the logo for clarity
   },
   logoTitle: {
-    color: 'white',     // White text for contrast
-    fontSize: 14,       // Adjust font size for the logo title
-    marginLeft: 5,      // Space between logo and title
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
+    marginLeft: 8,
   },
-
-  // Styles for bottom-left corner (slider item's title)
   bottomLeftContainer: {
-    position: 'absolute',  // Absolute positioning to place it at the bottom-left
-    bottom: 10,            // 10 units from the bottom of the image
-    left: 10,              // 10 units from the left of the image
+    position: "absolute",
+    bottom: 20,
+    left: 20,
   },
   itemTitle: {
-    color: 'white',       // White title for contrast
-    fontSize: 16,         // Adjust font size for the item title
-    fontWeight: 'bold',   // Bold title
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

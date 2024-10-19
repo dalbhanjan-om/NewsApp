@@ -28,7 +28,7 @@ const Page = () => {
   return (
     <View style={[styles.container,{paddingTop:safetop}]}>
      <Header/>
-     <SearchBar/>
+ 
     <BreakingNews newList={breakingNews}/>
     
     </View>
