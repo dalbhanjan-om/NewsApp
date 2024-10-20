@@ -14,7 +14,7 @@ const Page = () => {
   },[])
   const getBreakingNews=async()=>{
     try {
-      const URL=`https://newsdata.io/api/1/news?apikey=pub_56661c95aa276e9c8399debab852a814c8c01&country=in&language=en&removeduplicate=1&size=5 `
+      const URL=`https://newsdata.io/api/1/news?apikey=pub_56661c95aa276e9c8399debab852a814c8c01&country=in&language=en&removeduplicate=1`
       const response=await axios.get(URL);
       if(response && response.data){
         setBreakingNews(response.data.results);
@@ -39,7 +39,6 @@ export default Page;
 
 const styles = {
   container: {
-
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

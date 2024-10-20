@@ -1,10 +1,13 @@
+import SearchBar from '@/components/SearchBar';
 import React from 'react';
 import { View, Text } from 'react-native';
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const Page = () => {
+  const{top:safetop}=useSafeAreaInsets()
   return (
-    <View style={styles.container}>
-      <Text>Discover Screen</Text>
+    <View style={[styles.container,{paddingTop:safetop+20}]}>
+     
+      <SearchBar/>
     </View>
   );
 };

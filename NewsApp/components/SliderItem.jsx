@@ -49,7 +49,7 @@ export default function SliderItem({ slideitem }) {
 
 const styles = StyleSheet.create({
   itemWrapper: {
-    width: Width * 0.85, // 85% of the screen width for the image container
+    width: Width * 0.85, 
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 10,
