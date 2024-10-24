@@ -3,13 +3,13 @@ const newsCategoryList = [
     id: 1,
     title: 'All',
     slug: '',
-    selected: false,
+    selected: true,
   },
   {
     id: 2,
     title: 'Politics',
     slug: 'politics',
-    selected: false,
+    selected: true,
   },
   {
     id: 3,

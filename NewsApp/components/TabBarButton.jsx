@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 import React, { useEffect } from "react";
-import { icon } from "@/constants/Icons";
+import { icon } from "@/constants/Icons"; // Ensure the path is correct
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -9,46 +9,31 @@ import Animated, {
 } from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
-const TabBarButton = ({
-  onPress,
-  onLongPress,
-  isFocused,
-  routeName,
-  label,
-}: {
-  onPress: Function;
-  onLongPress: Function;
-  isFocused: boolean;
-  routeName: string;
-  label: string;
-}) => {
+const TabBarButton = ({ onPress, onLongPress, isFocused, routeName, label }) => {
   const opacity = useSharedValue(0);
 
   useEffect(() => {
-    opacity.value = withSpring(
-      typeof isFocused === "boolean" ? (isFocused ? 1 : 0) : isFocused,
-      { duration: 50 }
-    );
+    opacity.value = withSpring(isFocused ? 1 : 0, { duration: 50 });
   }, [opacity, isFocused]);
 
   const animatedTextStyle = useAnimatedStyle(() => {
     const opacityValue = interpolate(opacity.value, [0, 1], [1, 0]);
-
-    return {
-      opacity: opacityValue,
-    };
+    return { opacity: opacityValue };
   });
 
+  
+  
+
   return (
-    <Pressable
-      onPress={onPress}
-      onLongPress={onLongPress}
-      style={styles.tabbarBtn}
-    >
-      {icon[routeName]({
-        color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
-        focused: isFocused,
-      })}
+    <Pressable onPress={onPress} onLongPress={onLongPress} style={styles.tabbarBtn}>
+      {icon[routeName] ? (
+        icon[routeName]({
+          color: isFocused ? Colors.tabIconSelected : Colors.tabIconDefault,
+          focused: isFocused,
+        })
+      ) : (
+        <Text>Icon not found</Text> // Fallback if the routeName is undefined
+      )}
       <Animated.Text
         style={[
           {

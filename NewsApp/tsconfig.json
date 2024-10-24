@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/index.jsx", "app/_layout.jsx", "app/(tabs)/_layout.jsx", "app/(tabs)/discover.jsx", "app/(tabs)/index.jsx", "app/(tabs)/saved.jsx", "app/(tabs)/settings.jsx"  ]
+, "app/index.jsx", "app/_layout.jsx", "app/(tabs)/_layout.jsx", "app/(tabs)/discover.jsx", "app/(tabs)/index.jsx", "app/(tabs)/saved.jsx", "app/(tabs)/settings.jsx", "components/TabBarButton.jsx"  ]
 }
